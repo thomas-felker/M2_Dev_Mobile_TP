@@ -11,7 +11,7 @@ export default function Home({ navigation }: Readonly<Props>) {
   const [name, setName] = useState<string>("Default");
 
   return (
-    <View>
+    <View style={{margin: 5}}>
       <CustomButton
         mode="contained"
         onPress={() => {
@@ -28,12 +28,15 @@ export default function Home({ navigation }: Readonly<Props>) {
         }}
       />
       <CustomButton
-        mode="elevated"
+        mode="contained"
         onPress={() => {
           navigation.navigate("StateProps", { nom: name });
         }}
       >
-        {name}
+        UseState + UseEffect avec : {name}
+      </CustomButton>
+      <CustomButton onPress={() => navigation.navigate("Amis")}>
+        Aller voir mes amis
       </CustomButton>
     </View>
   );
