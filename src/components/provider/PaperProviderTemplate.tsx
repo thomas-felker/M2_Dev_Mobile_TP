@@ -8,10 +8,15 @@ export const theme: MD3Theme = {
     colors: {
         ...MD3LightTheme.colors,
         primary: '#3C3744',
+        onPrimary: '#E7E4F1',
         primaryContainer: '#3C3744',
+        onPrimaryContainer:'#E7E4F1',
         background: '#E7E4F1',
+        onBackground: '#3C3744',
         surface: '#E7E4F1',
+        onSurface: '#3C3744',
         surfaceVariant: '#FBF7DA',
+        onSurfaceVariant: '#3C3744',
         secondary: '#EAD94C',
         secondaryContainer:'#EAD94C',
     }

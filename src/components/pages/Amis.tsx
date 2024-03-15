@@ -1,18 +1,20 @@
 import { useState } from "react";
 import { View, StyleSheet, FlatList } from "react-native";
-import { TextInputTemplate as TextInputCustom } from "../templates/TextInputTemplate";
 import { Text } from "react-native-paper";
+import { TextInputTemplate as TextInputCustom } from "../templates/TextInputTemplate";
+import { FabTemplate as FabCustom } from "../templates/FabTemplate";
 import { ButtonTemplate } from "../templates/ButtonTemplate";
 import { Personne } from "../../models/Personne";
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState, addPersonne } from "../../slice/AmisSlice";
+import { RootState, addPersonne, removePersonne, store } from "../../slice/AmisSlice";
 
 function renderAmi(ami : Personne) {
     return (
         <View>
-            <View style={{flexDirection: 'row', flex:1}}>
+            <View style={{flexDirection: 'row', flex:1, justifyContent:'space-around'}}>
                 <Text variant="headlineMedium">{ami.prenom} </Text>
                 <Text variant="headlineMedium">{ami.nom}</Text>
+                <FabCustom style={{alignSelf: 'flex-end'}} icon={'trash-can'} onPress={() => store.dispatch(removePersonne(ami))}/>
             </View>
             <Text style={{flex:1}}>{ami.age} ans</Text>
         </View>
