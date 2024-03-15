@@ -1,15 +1,22 @@
-import { View, StyleSheet, Text } from "react-native";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { View, StyleSheet, Text, Pressable } from "react-native";
+import { RootStackParamList } from "../../navigation/Rootstack";
 
-export default function Home() {
-    return (
-        <View>
-            <Text>Home</Text>
-        </View>
-    );
+type Props = NativeStackScreenProps<RootStackParamList>;
+
+export default function Home({navigation} : Readonly<Props>) {
+  return (
+    <View>
+      <Pressable
+        onPress={()=> {
+            navigation.navigate('View');
+        }}>
+        <Text>Exercice View</Text>
+      </Pressable>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-    container : {
-
-    },
-})
+  container: {},
+});
