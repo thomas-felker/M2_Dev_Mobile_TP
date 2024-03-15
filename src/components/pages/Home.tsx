@@ -2,7 +2,8 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { View, StyleSheet } from "react-native";
 import { RootStackParamList } from "../../navigation/Rootstack";
 import { useState } from "react";
-import { Button, Text, TextInput } from "react-native-paper";
+import { TextInput } from "react-native-paper";
+import {ButtonTemplate as CustomButton} from '../templates/ButtonTemplate';
 
 type Props = NativeStackScreenProps<RootStackParamList>;
 
@@ -11,14 +12,14 @@ export default function Home({ navigation }: Readonly<Props>) {
 
   return (
     <View>
-      <Button
+      <CustomButton
         mode="contained"
         onPress={() => {
           navigation.navigate("View");
         }}
       >
         Exercice vue
-      </Button>
+      </CustomButton>
       <TextInput
         mode="outlined"
         value={name}
@@ -26,14 +27,14 @@ export default function Home({ navigation }: Readonly<Props>) {
           setName(text);
         }}
       />
-      <Button
+      <CustomButton
         mode="elevated"
         onPress={() => {
           navigation.navigate("StateProps", { nom: name });
         }}
       >
         {name}
-      </Button>
+      </CustomButton>
     </View>
   );
 }
