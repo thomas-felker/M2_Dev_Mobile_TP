@@ -1,64 +1,77 @@
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { View, StyleSheet } from "react-native";
+import { RootStackParamList } from "../../navigation/Rootstack";
 
+type Props = NativeStackScreenProps<RootStackParamList>;
 
-export default function Vue({navigation} : Readonly<Props>) {
-    return (
-      <View style={[styles.container, styles.flex]}>
-        <View style={[styles.row, styles.flex]}>
-          <View style={[styles.itemGreen, styles.flex, styles.margin]}/>
-          <View style={[styles.itemOrange, styles.flex, styles.margin]}/>
-          <View style={[styles.itemBlue, styles.flex, styles.margin]}/>
-          <View style={[styles.itemYellow, styles.flex, styles.margin]}/>
-        </View>
-        <View style={[styles.row, styles.flex, {alignItems:'center'}]}>
-          <View style={[styles.itemBlue, styles.flex, styles.margin]}>
-            <View style={[styles.flex, styles.itemRed, styles.margin]}></View>
-            <View style={[styles.flex, styles.itemBlack, styles.margin]}></View>
-          </View>
-          <View style={[styles.box, styles.itemYellow, styles.flex, styles.margin]}/>
-          <View style={[styles.box, styles.itemBlue, styles.flex, styles.margin]}/>
-          <View style={[styles.box, styles.itemYellow, styles.flex, styles.margin]}/>
-          <View style={[styles.box, styles.itemBlue, styles.flex, styles.margin]}/>
-          <View style={[styles.box, styles.itemYellow, styles.flex, styles.margin]}/>
-        </View>
+export default function Vue({ navigation }: Readonly<Props>) {
+  return (
+    <View style={[styles.container, styles.flex]}>
+      <View style={[styles.row, styles.flex]}>
+        <View style={[styles.itemGreen, styles.flex, styles.margin]} />
+        <View style={[styles.itemOrange, styles.flex, styles.margin]} />
+        <View style={[styles.itemBlue, styles.flex, styles.margin]} />
+        <View style={[styles.itemYellow, styles.flex, styles.margin]} />
       </View>
-    );
-  }
+      <View style={[styles.row, styles.flex, { alignItems: "center" }]}>
+        <View style={[styles.itemBlue, styles.flex, styles.margin]}>
+          <View style={[styles.flex, styles.itemRed, styles.margin]}></View>
+          <View style={[styles.flex, styles.itemBlack, styles.margin]}></View>
+        </View>
+        <View
+          style={[styles.box, styles.itemYellow, styles.flex, styles.margin]}
+        />
+        <View
+          style={[styles.box, styles.itemBlue, styles.flex, styles.margin]}
+        />
+        <View
+          style={[styles.box, styles.itemYellow, styles.flex, styles.margin]}
+        />
+        <View
+          style={[styles.box, styles.itemBlue, styles.flex, styles.margin]}
+        />
+        <View
+          style={[styles.box, styles.itemYellow, styles.flex, styles.margin]}
+        />
+      </View>
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
-  container : {
-    backgroundColor: 'white',
-    flexDirection:'column',
+  container: {
+    backgroundColor: "white",
+    flexDirection: "column",
   },
   box: {
-    height:75,
-    width:100,
+    height: 75,
+    width: 100,
   },
-  row : {
-    flexDirection: 'row',
+  row: {
+    flexDirection: "row",
   },
   itemGreen: {
-    backgroundColor:'green',
+    backgroundColor: "green",
   },
   itemOrange: {
-    backgroundColor:'orange',
+    backgroundColor: "orange",
   },
   itemBlue: {
-    backgroundColor:'blue',
+    backgroundColor: "blue",
   },
   itemYellow: {
-    backgroundColor:'yellow',
+    backgroundColor: "yellow",
   },
   itemRed: {
-    backgroundColor: 'red',
+    backgroundColor: "red",
   },
   itemBlack: {
-    backgroundColor: 'black',
+    backgroundColor: "black",
   },
   margin: {
-    margin:5,
+    margin: 5,
   },
   flex: {
-    flex:1,
-  }
-})
+    flex: 1,
+  },
+});
