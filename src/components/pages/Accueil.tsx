@@ -12,15 +12,15 @@ import {renderAnnonce} from "./AnnonceRenderer";
 type Props = NativeStackScreenProps<RootStackParamList>;
 
 export default function Accueil(props: Readonly<Props>): ReactNode {
-    const [searchBarText, setSearchBarText] = useState("");
+    const [searchBarText, setSearchBarText] = useState<string>("");
 
     const [data, setData] = useState<TypeAnnonce[]>(require('../../data/data.json'));
     const [filteredData, setFilteredData] = useState<TypeAnnonce[]>(data);
 
-    const [annoncesNumber, setAnnoncesNumber] = useState(0);
+    const [annoncesNumber, setAnnoncesNumber] = useState<number>(0);
     const favoris: TypeAnnonce[] = useSelector((state: RootState) => state.favoris);
 
-    useEffect(() => {
+    useEffect((): void => {
         setFilteredData(data.filter(item =>
             item.carMake.toLowerCase().includes(searchBarText.toLowerCase()) ||
             item.carModel.toLowerCase().includes(searchBarText.toLowerCase())
@@ -28,10 +28,10 @@ export default function Accueil(props: Readonly<Props>): ReactNode {
         console.log("Données filtrées")
     }, [searchBarText]);
 
-    useEffect(() => {
+    useEffect((): void => {
         if (filteredData) {
             setAnnoncesNumber(filteredData.length);
-            console.log("Nombre d'annonces mis à jour")
+            console.log("Nombre d'annonces mis à jour : " + annoncesNumber)
         }
     }, [filteredData]);
 
