@@ -5,6 +5,8 @@ import {ButtonTemplate as CustomButton} from "../templates/ButtonTemplate";
 import React, {useEffect, useState} from "react";
 import {Text, TextInput} from "react-native-paper";
 import {TypeAnnonce} from "../../models/TypeAnnonce";
+import {useSelector} from "react-redux";
+import {RootState} from "../../slice/FavorisSlice";
 
 type Props = NativeStackScreenProps<RootStackParamList>;
 
@@ -12,6 +14,9 @@ export default function Accueil({ navigation }: Readonly<Props>) {
     const [annonce, setAnnonce] = useState("");
     const [data, setData] = useState(null);
     const [annoncesNumber, setAnnoncesNumber] = useState(0);
+    const favoris = useSelector((state: RootState) => state.favoris);
+
+    console.log("Favoris = " + favoris.length)
 
     useEffect(() => {
         const jsonData = require('../../data/data.json');
@@ -60,10 +65,10 @@ export default function Accueil({ navigation }: Readonly<Props>) {
                     <CustomButton
                         mode="contained"
                         onPress={() => {
-                            navigation.navigate("View");
+                            navigation.navigate("Mes favoris");
                         }}
                     >
-                        Mes favoris :
+                        Mes favoris : {favoris.length}
                     </CustomButton>
                 </View>
             </View>

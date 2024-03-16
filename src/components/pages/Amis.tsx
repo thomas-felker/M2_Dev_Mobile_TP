@@ -6,7 +6,7 @@ import { FabTemplate as FabCustom } from "../templates/FabTemplate";
 import { ButtonTemplate } from "../templates/ButtonTemplate";
 import { Personne } from "../../models/Personne";
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState, addPersonne, removePersonne, store } from "../../slice/AmisSlice";
+import { RootState, addPersonne, removePersonne, store } from "../../slice/FavorisSlice";
 
 function renderAmi(ami : Personne) {
     return (
@@ -28,7 +28,7 @@ export default function Amis() {
     const [id, setId] = useState<number>(0);
 
     const dispatch = useDispatch();
-    const lAMIS = useSelector((state: RootState) => state.personnes)
+    const lAMIS = useSelector((state: RootState) => state.favoris)
 
     function replaceToInt(id : string) {
         if (id === '') {

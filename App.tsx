@@ -4,7 +4,7 @@ import RootStack from "./src/navigation/Rootstack";
 import { StatusBar } from "expo-status-bar";
 import {PaperProviderTemplate as PaperProviderCustom} from "./src/components/provider/PaperProviderTemplate";
 import { Provider as ReduxProvider } from "react-redux";
-import { store } from "./src/slice/AmisSlice";
+import { store } from "./src/slice/FavorisSlice";
 
 export default function App() {
   return (

@@ -1,4 +1,4 @@
-export type TypeAnnonce
+export type TypeAnnonce =
 {
     id: string;
     carMake: string;

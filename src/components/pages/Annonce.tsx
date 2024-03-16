@@ -6,6 +6,8 @@ import React, {ReactNode, useState} from "react";
 import {Text} from "react-native-paper";
 import {ButtonTemplate as CustomButton} from "../templates/ButtonTemplate";
 import { Avatar } from 'react-native-paper';
+import {useDispatch, useSelector} from "react-redux";
+import {addFavoris, removeFavoris, RootState} from "../../slice/FavorisSlice";
 
 type Props = NativeStackScreenProps<RootStackParamList>;
 export type AnnonceParams = {
@@ -13,8 +15,22 @@ export type AnnonceParams = {
 };
 
 export default function Annonce(props: Readonly<Props>): ReactNode {
+    const favoris = useSelector((state: RootState) => state.favoris);
+    const dispatch = useDispatch();
+
     let params: AnnonceParams = props.route.params as AnnonceParams;
-    const [currentAnnonce, setCurrentAnnonce] = useState(params.currentAnnonce);
+    const currentAnnonce: TypeAnnonce = params.currentAnnonce;
+    const [isFavoris, setIsFavoris] =
+        useState(favoris.find(elem => elem.id == currentAnnonce.id) != undefined);
+    function addToFavoris() {
+        dispatch(addFavoris(currentAnnonce));
+        setIsFavoris(true);
+    }
+
+    function removeFromFavoris() {
+        dispatch(removeFavoris(currentAnnonce));
+        setIsFavoris(false)
+    }
 
     return (
         <View style={[styles.container]}>
@@ -94,14 +110,23 @@ export default function Annonce(props: Readonly<Props>): ReactNode {
 
             </View>
 
-
+            {!isFavoris ? (
             <View style={styles.bottomContainer}>
                 <CustomButton
-                    onPress={() => {}}
+                    onPress={() => {addToFavoris()}}
                 >
                     Ajouter aux favoris
                 </CustomButton>
             </View>
+            ) : (
+                <View style={styles.bottomContainer}>
+                    <CustomButton
+                        onPress={() => {removeFromFavoris()}}
+                    >
+                        Supprimer des favoris
+                    </CustomButton>
+                </View>
+            )}
         </View>
     );
 }
