@@ -8,7 +8,7 @@ import Amis from "../components/pages/Amis";
 import Accueil from "../components/pages/Accueil";
 
 export type RootStackParamList = {
-  Accueil:undefined;
+  "Liste des anonces": undefined;
 
   Home: undefined;
   View: undefined;
@@ -20,7 +20,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootStack(): ReactNode {
   return (
-    <Stack.Navigator initialRouteName="Accueil"
+    <Stack.Navigator initialRouteName="Liste des anonces"
     screenOptions={{
       headerStyle: {
         backgroundColor: navigationTheme.colors.primary,
@@ -28,7 +28,8 @@ function RootStack(): ReactNode {
       headerTintColor: navigationTheme.colors.text,
       headerTitleStyle: {fontSize: 20}
     }}>
-      <Stack.Screen name="Accueil" component={Accueil} />
+      <Stack.Screen name="Liste des anonces" component={Accueil} />
+
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="View" component={Vue} />
       <Stack.Screen name="StateProps" component={StateProps} />
