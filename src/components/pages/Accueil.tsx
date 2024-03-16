@@ -1,28 +1,12 @@
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {RootStackParamList} from "../../navigation/Rootstack";
-import {FlatList, StyleSheet, View} from "react-native";
+import {FlatList, StyleSheet, TouchableOpacity, View} from "react-native";
 import {ButtonTemplate as CustomButton} from "../templates/ButtonTemplate";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Text, TextInput} from "react-native-paper";
-import {AnnonceType} from "../../models/AnnonceType";
+import {TypeAnnonce} from "../../models/TypeAnnonce";
 
 type Props = NativeStackScreenProps<RootStackParamList>;
-
-function renderAnnonce(annonce : AnnonceType) {
-    return (
-        <View style={[styles.flatListRow]}>
-            <View style={[styles.flatListRowContent]}>
-                <Text variant="titleLarge" style={[styles.boldText]}>{annonce.carMake} {annonce.carModel}</Text>
-            </View>
-            <View style={[styles.flatListRowContent]}>
-                <Text variant="bodyMedium" style={styles.italicText}>{annonce.carModelYear} - {annonce.price}</Text>
-            </View>
-            <View style={[styles.flatListRowContent]}>
-                <Text variant="bodyMedium">{annonce.description}</Text>
-            </View>
-        </View>
-    );
-}
 
 export default function Accueil({ navigation }: Readonly<Props>) {
     const [annonce, setAnnonce] = useState("");
@@ -35,6 +19,28 @@ export default function Accueil({ navigation }: Readonly<Props>) {
         setAnnoncesNumber(Object.keys(jsonData).length);
         console.log("Data successfully fetched, " + annoncesNumber + " cars retrieved.")
     }, []);
+
+    function renderAnnonce(annonce : TypeAnnonce) {
+        return (
+            <View style={[styles.flatListRow]}>
+                <TouchableOpacity
+                    onPress={(): void => {
+                        return navigation.navigate('Annonce', {currentAnnonce: annonce})
+                    }}
+                >
+                    <View style={[styles.flatListRowContent]}>
+                        <Text variant="titleLarge" style={[styles.boldText]}>{annonce.carMake} {annonce.carModel}</Text>
+                    </View>
+                    <View style={[styles.flatListRowContent]}>
+                        <Text variant="bodyMedium" style={styles.italicText}>{annonce.carModelYear} - {annonce.price}</Text>
+                    </View>
+                    <View style={[styles.flatListRowContent]}>
+                        <Text variant="bodyMedium">{annonce.description}</Text>
+                    </View>
+                </TouchableOpacity>
+            </View>
+        );
+    }
 
     return (
         <View style={[styles.container]}>
