@@ -14,7 +14,7 @@ export default function Accueil({ navigation }: Readonly<Props>) {
     const [annonce, setAnnonce] = useState("");
     const [data, setData] = useState(null);
     const [annoncesNumber, setAnnoncesNumber] = useState(0);
-    const favoris = useSelector((state: RootState) => state.favoris);
+    const favoris: TypeAnnonce[] = useSelector((state: RootState) => state.favoris);
 
     console.log("Favoris = " + favoris.length)
 
