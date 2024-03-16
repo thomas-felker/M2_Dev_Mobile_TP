@@ -35,14 +35,18 @@ export default function Favoris({navigation}: Readonly<Props>): ReactNode {
     }
 
     return (
-        <View>
-            {favoris ? (
-                <FlatList
-                    data={favoris}
-                    renderItem={({item}) => renderAnnonce(item)}
-                />
+        <View style={[styles.container]}>
+            {favoris.length > 0 ? (
+                <View>
+                    <FlatList
+                        data={favoris}
+                        renderItem={({item}) => renderAnnonce(item)}
+                    />
+                </View>
             ) : (
-                <Text>Chargement des données...</Text>
+                <View style={[styles.noFavoriteRow]}>
+                    <Text variant="titleLarge">Vous n'avez aucun favori !</Text>
+                </View>
             )}
         </View>
     )
@@ -85,5 +89,11 @@ const styles = StyleSheet.create({
     },
     italicText: {
         fontStyle: 'italic'
-    }
+    },
+    noFavoriteRow: {
+        flexDirection: 'row',
+        marginVertical: 40,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
 });

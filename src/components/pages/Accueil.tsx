@@ -16,7 +16,7 @@ export default function Accueil({ navigation }: Readonly<Props>) {
     const [annoncesNumber, setAnnoncesNumber] = useState(0);
     const favoris: TypeAnnonce[] = useSelector((state: RootState) => state.favoris);
 
-    console.log("Favoris = " + favoris.length)
+    console.log("Number of favorites = " + favoris.length)
 
     useEffect(() => {
         const jsonData = require('../../data/data.json');
