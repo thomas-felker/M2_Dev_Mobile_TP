@@ -21,9 +21,16 @@ export default function Accueil(props: Readonly<Props>): ReactNode {
     const favoris: TypeAnnonce[] = useSelector((state: RootState) => state.favoris);
 
     useEffect((): void => {
+        /** C'est ici  que se fait la filtration sur la recherche
+         * Les données sont filtrées en sélectionnant seulement les éléments dont un des champs présent sur la "Liste
+         *    des annonces" contient le texte de la barre de recherche
+         */
         setFilteredData(data.filter(item =>
             item.carMake.toLowerCase().includes(searchBarText.toLowerCase()) ||
-            item.carModel.toLowerCase().includes(searchBarText.toLowerCase())
+            item.carModel.toLowerCase().includes(searchBarText.toLowerCase()) ||
+            item.carModelYear == Number(searchBarText.toLowerCase()) ||
+            item.price.toLowerCase().includes(searchBarText.toLowerCase()) ||
+            item.description.toLowerCase().includes(searchBarText.toLowerCase())
         ));
         console.log("Données filtrées")
     }, [searchBarText]);
