@@ -21,7 +21,6 @@ export default function Accueil(props: Readonly<Props>): ReactNode {
     const favoris: TypeAnnonce[] = useSelector((state: RootState) => state.favoris);
 
     useEffect(() => {
-        console.log(searchBarText)
         setFilteredData(data.filter(item =>
             item.carMake.toLowerCase().includes(searchBarText.toLowerCase()) ||
             item.carModel.toLowerCase().includes(searchBarText.toLowerCase())
