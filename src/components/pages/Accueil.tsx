@@ -12,20 +12,29 @@ import {renderAnnonce} from "./AnnonceRenderer";
 type Props = NativeStackScreenProps<RootStackParamList>;
 
 export default function Accueil(props: Readonly<Props>): ReactNode {
+    const [searchBarText, setSearchBarText] = useState("");
 
-    const [annonce, setAnnonce] = useState("");
-    const [data, setData] = useState(null);
+    const [data, setData] = useState<TypeAnnonce[]>(require('../../data/data.json'));
+    const [filteredData, setFilteredData] = useState<TypeAnnonce[]>(data);
+
     const [annoncesNumber, setAnnoncesNumber] = useState(0);
     const favoris: TypeAnnonce[] = useSelector((state: RootState) => state.favoris);
 
-    console.log("Number of favorites = " + favoris.length)
+    useEffect(() => {
+        console.log(searchBarText)
+        setFilteredData(data.filter(item =>
+            item.carMake.toLowerCase().includes(searchBarText.toLowerCase()) ||
+            item.carModel.toLowerCase().includes(searchBarText.toLowerCase())
+        ));
+        console.log("Données filtrées")
+    }, [searchBarText]);
 
     useEffect(() => {
-        const jsonData = require('../../data/data.json');
-        setData(jsonData);
-        setAnnoncesNumber(Object.keys(jsonData).length);
-        console.log("Data successfully fetched, " + annoncesNumber + " cars retrieved.")
-    }, []);
+        if (filteredData) {
+            setAnnoncesNumber(filteredData.length);
+            console.log("Nombre d'annonces mis à jour")
+        }
+    }, [filteredData]);
 
     return (
         <View style={[styles.container]}>
@@ -47,9 +56,9 @@ export default function Accueil(props: Readonly<Props>): ReactNode {
                     style={[styles.textInput]}
                     mode="outlined"
                     placeholder={"Rechercher une voiture"}
-                    value={annonce}
+                    value={searchBarText}
                     onChangeText={(text: string): void => {
-                        setAnnonce(text);
+                        setSearchBarText(text);
                     }}
                 />
             </View>
@@ -63,8 +72,8 @@ export default function Accueil(props: Readonly<Props>): ReactNode {
             <View>
                 {data ? (
                     <FlatList
-                        data={data}
-                        renderItem={({item}) => renderAnnonce(item, props)}
+                        data={filteredData}
+                        renderItem={({item}) => renderAnnonce(item, props.navigation)}
                     />
                 ) : (
                     <Text>Chargement des données...</Text>
@@ -100,17 +109,4 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center'
     },
-    flatListRow: {
-        marginVertical: 5
-    },
-    flatListRowContent: {
-        flexDirection: 'row',
-        flex:1
-    },
-    boldText: {
-        fontWeight: 'bold'
-    },
-    italicText: {
-        fontStyle: 'italic'
-    }
 });

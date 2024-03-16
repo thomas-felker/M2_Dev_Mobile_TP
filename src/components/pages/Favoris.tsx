@@ -19,7 +19,7 @@ export default function Favoris(props: Readonly<Props>): ReactNode {
                 <View>
                     <FlatList
                         data={favoris}
-                        renderItem={({item}) => renderAnnonce(item, props)}
+                        renderItem={({item}) => renderAnnonce(item, props.navigation)}
                     />
                 </View>
             ) : (

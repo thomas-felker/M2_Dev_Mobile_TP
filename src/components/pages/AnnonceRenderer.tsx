@@ -1,18 +1,18 @@
 import {TypeAnnonce} from "../../models/TypeAnnonce";
 import {StyleSheet, TouchableOpacity, View} from "react-native";
 import {Text} from "react-native-paper";
-import React from "react";
-import {NativeStackScreenProps} from "@react-navigation/native-stack";
+import React, {ReactNode} from "react";
+import {NativeStackNavigationProp, NativeStackScreenProps} from "@react-navigation/native-stack";
 import {RootStackParamList} from "../../navigation/Rootstack";
 
 type Props = NativeStackScreenProps<RootStackParamList>;
 
-export function renderAnnonce(annonce : TypeAnnonce, props: Readonly<Props>) {
+export function renderAnnonce(annonce : TypeAnnonce, navigation: NativeStackNavigationProp<RootStackParamList>): ReactNode {
     return (
         <View style={[styles.flatListRow]}>
             <TouchableOpacity
                 onPress={(): void => {
-                    return props.navigation.navigate('Annonce', {currentAnnonce: annonce})
+                    return navigation.navigate('Annonce', {currentAnnonce: annonce})
                 }}
             >
                 <View style={[styles.flatListRowContent]}>
@@ -30,31 +30,6 @@ export function renderAnnonce(annonce : TypeAnnonce, props: Readonly<Props>) {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flexDirection: "column",
-        marginHorizontal: 20,
-        flex: 1
-    },
-    buttonRow: {
-        flexDirection: 'row',
-        marginVertical: 30
-    },
-    inputRow: {
-        flexDirection: 'row',
-        marginVertical: 10
-    },
-    textInput: {
-        flex: 1,
-        backgroundColor: "white"
-    },
-    annoncesNumberText: {
-        marginVertical: 10,
-        fontStyle: 'italic'
-    },
-    column: {
-        flex: 1,
-        alignItems: 'center'
-    },
     flatListRow: {
         marginVertical: 5
     },
@@ -67,11 +42,5 @@ const styles = StyleSheet.create({
     },
     italicText: {
         fontStyle: 'italic'
-    },
-    noFavoriteRow: {
-        flexDirection: 'row',
-        marginVertical: 40,
-        justifyContent: 'center',
-        alignItems: 'center'
     },
 });

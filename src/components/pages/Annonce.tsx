@@ -8,6 +8,7 @@ import {ButtonTemplate as CustomButton} from "../templates/ButtonTemplate";
 import { Avatar } from 'react-native-paper';
 import {useDispatch, useSelector} from "react-redux";
 import {addFavoris, removeFavoris, RootState} from "../../slice/FavorisSlice";
+import {Dispatch} from "@reduxjs/toolkit";
 
 type Props = NativeStackScreenProps<RootStackParamList>;
 export type AnnonceParams = {
@@ -15,19 +16,19 @@ export type AnnonceParams = {
 };
 
 export default function Annonce(props: Readonly<Props>): ReactNode {
-    const favoris = useSelector((state: RootState) => state.favoris);
-    const dispatch = useDispatch();
+    const favoris: TypeAnnonce[] = useSelector((state: RootState) => state.favoris);
+    const dispatch: Dispatch = useDispatch();
 
     let params: AnnonceParams = props.route.params as AnnonceParams;
     const currentAnnonce: TypeAnnonce = params.currentAnnonce;
     const [isFavoris, setIsFavoris] =
-        useState(favoris.find(elem => elem.id == currentAnnonce.id) != undefined);
-    function addToFavoris() {
+        useState<boolean>(favoris.find(elem => elem.id == currentAnnonce.id) != undefined);
+    function addToFavoris(): void {
         dispatch(addFavoris(currentAnnonce));
         setIsFavoris(true);
     }
 
-    function removeFromFavoris() {
+    function removeFromFavoris(): void {
         dispatch(removeFavoris(currentAnnonce));
         setIsFavoris(false)
     }
@@ -113,7 +114,7 @@ export default function Annonce(props: Readonly<Props>): ReactNode {
             {!isFavoris ? (
             <View style={styles.bottomContainer}>
                 <CustomButton
-                    onPress={() => {addToFavoris()}}
+                    onPress={(): void => {addToFavoris()}}
                 >
                     Ajouter aux favoris
                 </CustomButton>
@@ -121,7 +122,7 @@ export default function Annonce(props: Readonly<Props>): ReactNode {
             ) : (
                 <View style={styles.bottomContainer}>
                     <CustomButton
-                        onPress={() => {removeFromFavoris()}}
+                        onPress={(): void => {removeFromFavoris()}}
                     >
                         Supprimer des favoris
                     </CustomButton>
