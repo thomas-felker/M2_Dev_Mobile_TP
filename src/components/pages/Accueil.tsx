@@ -1,16 +1,18 @@
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {RootStackParamList} from "../../navigation/Rootstack";
-import {FlatList, StyleSheet, TouchableOpacity, View} from "react-native";
+import {FlatList, StyleSheet, View} from "react-native";
 import {ButtonTemplate as CustomButton} from "../templates/ButtonTemplate";
-import React, {useEffect, useState} from "react";
+import React, {ReactNode, useEffect, useState} from "react";
 import {Text, TextInput} from "react-native-paper";
 import {TypeAnnonce} from "../../models/TypeAnnonce";
 import {useSelector} from "react-redux";
 import {RootState} from "../../slice/FavorisSlice";
+import {renderAnnonce} from "./AnnonceRenderer";
 
 type Props = NativeStackScreenProps<RootStackParamList>;
 
-export default function Accueil({ navigation }: Readonly<Props>) {
+export default function Accueil(props: Readonly<Props>): ReactNode {
+
     const [annonce, setAnnonce] = useState("");
     const [data, setData] = useState(null);
     const [annoncesNumber, setAnnoncesNumber] = useState(0);
@@ -25,47 +27,14 @@ export default function Accueil({ navigation }: Readonly<Props>) {
         console.log("Data successfully fetched, " + annoncesNumber + " cars retrieved.")
     }, []);
 
-    function renderAnnonce(annonce : TypeAnnonce) {
-        return (
-            <View style={[styles.flatListRow]}>
-                <TouchableOpacity
-                    onPress={(): void => {
-                        return navigation.navigate('Annonce', {currentAnnonce: annonce})
-                    }}
-                >
-                    <View style={[styles.flatListRowContent]}>
-                        <Text variant="titleLarge" style={[styles.boldText]}>{annonce.carMake} {annonce.carModel}</Text>
-                    </View>
-                    <View style={[styles.flatListRowContent]}>
-                        <Text variant="bodyMedium" style={styles.italicText}>{annonce.carModelYear} - {annonce.price}</Text>
-                    </View>
-                    <View style={[styles.flatListRowContent]}>
-                        <Text variant="bodyMedium">{annonce.description}</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
-        );
-    }
-
     return (
         <View style={[styles.container]}>
-
-            <View style={styles.buttonRow}>
-                <View style={styles.column}>
-                    <CustomButton
-                        onPress={() => navigation.navigate("Home")}
-                    >
-                        TEST PAGE
-                    </CustomButton>
-                </View>
-            </View>
-
             <View style={styles.buttonRow}>
                 <View style={styles.column}>
                     <CustomButton
                         mode="contained"
-                        onPress={() => {
-                            navigation.navigate("Mes favoris");
+                        onPress={(): void => {
+                            props.navigation.navigate("Mes favoris");
                         }}
                     >
                         Mes favoris : {favoris.length}
@@ -79,7 +48,7 @@ export default function Accueil({ navigation }: Readonly<Props>) {
                     mode="outlined"
                     placeholder={"Rechercher une voiture"}
                     value={annonce}
-                    onChangeText={(text: string) => {
+                    onChangeText={(text: string): void => {
                         setAnnonce(text);
                     }}
                 />
@@ -95,7 +64,7 @@ export default function Accueil({ navigation }: Readonly<Props>) {
                 {data ? (
                     <FlatList
                         data={data}
-                        renderItem={({item}) => renderAnnonce(item)}
+                        renderItem={({item}) => renderAnnonce(item, props)}
                     />
                 ) : (
                     <Text>Chargement des données...</Text>

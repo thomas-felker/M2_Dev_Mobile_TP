@@ -1,35 +1,34 @@
-import React, {ReactNode} from "react";
-import {FlatList, StyleSheet, TouchableOpacity, View} from "react-native";
+import {TypeAnnonce} from "../../models/TypeAnnonce";
+import {StyleSheet, TouchableOpacity, View} from "react-native";
+import {Text} from "react-native-paper";
+import React from "react";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {RootStackParamList} from "../../navigation/Rootstack";
-import {useSelector} from "react-redux";
-import {RootState} from "../../slice/FavorisSlice";
-import {TypeAnnonce} from "../../models/TypeAnnonce";
-import {Text} from "react-native-paper";
-import {renderAnnonce} from "./AnnonceRenderer";
 
 type Props = NativeStackScreenProps<RootStackParamList>;
 
-export default function Favoris(props: Readonly<Props>): ReactNode {
-    const favoris: TypeAnnonce[] = useSelector((state: RootState) => state.favoris)
-
+export function renderAnnonce(annonce : TypeAnnonce, props: Readonly<Props>) {
     return (
-        <View style={[styles.container]}>
-            {favoris.length > 0 ? (
-                <View>
-                    <FlatList
-                        data={favoris}
-                        renderItem={({item}) => renderAnnonce(item, props)}
-                    />
+        <View style={[styles.flatListRow]}>
+            <TouchableOpacity
+                onPress={(): void => {
+                    return props.navigation.navigate('Annonce', {currentAnnonce: annonce})
+                }}
+            >
+                <View style={[styles.flatListRowContent]}>
+                    <Text variant="titleLarge" style={[styles.boldText]}>{annonce.carMake} {annonce.carModel}</Text>
                 </View>
-            ) : (
-                <View style={[styles.noFavoriteRow]}>
-                    <Text variant="titleLarge">Vous n'avez aucun favori !</Text>
+                <View style={[styles.flatListRowContent]}>
+                    <Text variant="bodyMedium" style={styles.italicText}>{annonce.carModelYear} - {annonce.price}</Text>
                 </View>
-            )}
+                <View style={[styles.flatListRowContent]}>
+                    <Text variant="bodyMedium">{annonce.description}</Text>
+                </View>
+            </TouchableOpacity>
         </View>
-    )
+    );
 }
+
 const styles = StyleSheet.create({
     container: {
         flexDirection: "column",

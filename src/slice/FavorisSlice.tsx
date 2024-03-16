@@ -19,16 +19,14 @@ const listFavoris = createSlice({
     }
 })
 
+export type RootState = ReturnType<typeof store.getState>
+export const { addFavoris, removeFavoris } = listFavoris.actions;
+export default listFavoris.reducer;
+
+
 const store = configureStore({
     reducer: {
         favoris : listFavoris.reducer,
     },
 })
-
-export type RootState = ReturnType<typeof store.getState>
-
-export const { addFavoris, removeFavoris } = listFavoris.actions;
-export default listFavoris.reducer;
-
-
 export {store};
